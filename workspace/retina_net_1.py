@@ -89,7 +89,7 @@ train["image_id"] = train["image_id"].apply(lambda x: str(x) + ".jpg")
 train["image_id"] = train["image_id"].apply(lambda x: Path.joinpath(TRAIN_DATA, str(x)))
 train["image_id"] = train["image_id"].astype("str")
 # Create annotations file
-train.to_csv("annotations.csv", index=False, header=None)  # Note that this is the format we need
+train.to_csv("annotations_2.csv", index=False, header=None)  # Note that this is the format we need
 ANNOTATIONS_FILE = 'annotations.csv'
 # Create classes file
 wheat_class = pd.DataFrame({'class_name': ['wheat'], 'id': [0]})    # Should match train["class"]
@@ -113,7 +113,7 @@ MODEL_PATH = Path.cwd() / "snapshots" / "resnet50_coco_best_v2.1.0.h5"
 ## TRAINING ##
 ##############
 
-# /Users/luislopez/PycharmProjects/retina_net/keras-retinanet/keras_retinanet/bin/train.py --freeze-backbone --random-transform --weights /Users/luislopez/PycharmProjects/retina_net/snapshots/resnet50_coco_best_v2.1.0.h5 --batch-size 8 --steps 500 --epochs 10 csv annotations.csv classes.csv
+# /Users/luislopez/PycharmProjects/retina_net/keras-retinanet/keras_retinanet/bin/train.py --freeze-backbone --random-transform --weights /Users/luislopez/PycharmProjects/retina_net/snapshots/resnet50_coco_best_v2.1.0.h5 --batch-size 8 --steps 500 --epochs 10 csv annotations_2.csv classes.csv
 
 
 
