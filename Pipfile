@@ -9,6 +9,11 @@ verify_ssl = true
 numpy = "*"
 tensorflow = "*"
 gdown = "*"
+pandas = "*"
+seaborn = "*"
+matplotlib = "*"
+scikit-learn = "*"
+pycocotools = "*"
 
 [requires]
 python_version = "3.7"

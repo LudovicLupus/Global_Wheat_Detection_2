@@ -1,3 +1,4 @@
 /keras-retinanet/*
 /data/*
+/workspace/snapshots/*
 temp_out.txt
