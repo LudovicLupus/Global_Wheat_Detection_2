@@ -74,19 +74,25 @@ train[train['y_min'] > 0]
 train[train['x_max'] < 1024]
 train[train['y_max'] < 1024]
 
+# Cast bounding-box coordinates to dtype int
+train = train.astype({'x_min': 'int32',
+                      'y_min': 'int32',
+                      'x_max': 'int32',
+                      'y_max': 'int32'})
+
 # Add a label for all images (since all contain wheat)
 # Useful for when/if we choose to include photos without wheat
-train["class"] = "1"
+train["class"] = "wheat"
 
 # Append ".jpg" to image_id for ease of processing later on
 train["image_id"] = train["image_id"].apply(lambda x: str(x) + ".jpg")
 train["image_id"] = train["image_id"].apply(lambda x: Path.joinpath(TRAIN_DATA, str(x)))
 train["image_id"] = train["image_id"].astype("str")
 # Create annotations file
-train.to_csv("annotations.csv", index=False)  # Note that this is the format we need
+train.to_csv("annotations.csv", index=False, header=None)  # Note that this is the format we need
 ANNOTATIONS_FILE = 'annotations.csv'
 # Create classes file
-wheat_class = pd.DataFrame({'class_name': ['wheat'], 'id': [0]})
+wheat_class = pd.DataFrame({'class_name': ['wheat'], 'id': [0]})    # Should match train["class"]
 wheat_class = wheat_class.to_csv('classes.csv', index=False, header=None)
 CLASSES_FILE = 'classes.csv'
 
@@ -99,7 +105,7 @@ train_df, test_df = train_test_split(train, test_size=0.2, random_state=RANDOM_S
 #   1) config files?
 # adjust this to point to your downloaded/trained model
 # models can be downloaded here: https://github.com/fizyr/keras-retinanet/releases
-model_path = Path.cwd() / "snapshots" / "resnet50_coco_best_v2.1.0.h5"
+MODEL_PATH = Path.cwd() / "snapshots" / "resnet50_coco_best_v2.1.0.h5"
 # load retinanet model (don't think we need this...)
 # model = models.load_model(model_path, backbone_name='resnet50')
 
@@ -107,8 +113,7 @@ model_path = Path.cwd() / "snapshots" / "resnet50_coco_best_v2.1.0.h5"
 ## TRAINING ##
 ##############
 
-
-
+# /Users/luislopez/PycharmProjects/retina_net/keras-retinanet/keras_retinanet/bin/train.py --freeze-backbone --random-transform --weights /Users/luislopez/PycharmProjects/retina_net/snapshots/resnet50_coco_best_v2.1.0.h5 --batch-size 8 --steps 500 --epochs 10 csv annotations.csv classes.csv
 
 
 
