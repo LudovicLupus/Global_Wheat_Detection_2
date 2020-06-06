@@ -63,7 +63,7 @@ for i, column in enumerate(['x_min', 'y_min', 'width', 'height']):
 
 train["x_max"] = train.apply(lambda col: col.x_min + col.width, axis=1)
 train["y_max"] = train.apply(lambda col: col.y_min + col.height, axis=1)
-train.drop(columns=['bbox'], inplace=True)
+train.drop(columns=['bbox', 'width', 'height', 'source'], inplace=True)
 
 # Checking freq dist of bounding boxes per image
 train['image_id'].value_counts()
@@ -82,8 +82,16 @@ train["class"] = "1"
 train["image_id"] = train["image_id"].apply(lambda x: str(x) + ".jpg")
 train["image_id"] = train["image_id"].apply(lambda x: Path.joinpath(TRAIN_DATA, str(x)))
 train["image_id"] = train["image_id"].astype("str")
-train.to_csv("wheat.csv", index=False)
+# Create annotations file
+train.to_csv("annotations.csv", index=False)  # Note that this is the format we need
+ANNOTATIONS_FILE = 'annotations.csv'
+# Create classes file
+wheat_class = pd.DataFrame({'class_name': ['wheat'], 'id': [0]})
+wheat_class = wheat_class.to_csv('classes.csv', index=False, header=None)
+CLASSES_FILE = 'classes.csv'
 
+# Split the data
+train_df, test_df = train_test_split(train, test_size=0.2, random_state=RANDOM_SEED)
 
 ################
 ## LOAD MODEL ##
@@ -92,8 +100,13 @@ train.to_csv("wheat.csv", index=False)
 # adjust this to point to your downloaded/trained model
 # models can be downloaded here: https://github.com/fizyr/keras-retinanet/releases
 model_path = Path.cwd() / "snapshots" / "resnet50_coco_best_v2.1.0.h5"
-# load retinanet model
-model = models.load_model(model_path, backbone_name='resnet50')
+# load retinanet model (don't think we need this...)
+# model = models.load_model(model_path, backbone_name='resnet50')
+
+##############
+## TRAINING ##
+##############
+
 
 
 
