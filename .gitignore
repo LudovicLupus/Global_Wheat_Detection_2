@@ -1,10 +1,9 @@
 /keras-retinanet/*
 /data/*
 /workspace/snapshots/*
+/ignore/*
 
 temp_out.txt
-connections.txt
-error.py
 wheat.csv
 annotations.csv
 annotations_2.csv
