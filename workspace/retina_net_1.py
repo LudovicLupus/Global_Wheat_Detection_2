@@ -116,14 +116,3 @@ train_df, test_df = train_test_split(train, test_size=0.2, random_state=RANDOM_S
 ##############
 ## TRAINING ##
 ##############
-
-# /Users/luislopez/PycharmProjects/retina_net/keras-retinanet/keras_retinanet/bin/train.py --freeze-backbone --random-transform --weights /Users/luislopez/PycharmProjects/retina_net/snapshots/resnet50_coco_best_v2.1.0.h5 --batch-size 8 --steps 500 --epochs 10 csv annotations_2.csv classes.csv
-
-###
-###
-
-# AWS SSH Connection String:
-# ssh -L localhost:8888:localhost:8888 -i mac_aws_ludoviclupus_key_pair.pem ubuntu@ec2-52-3-252-12.compute-1.amazonaws.com
-
-# /Users/luislopez/Documents/aws
-
