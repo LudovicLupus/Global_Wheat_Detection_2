@@ -4,21 +4,21 @@
 
 import numpy as np
 import tensorflow as tf
-from tensorflow import keras
+# from tensorflow import keras
 import pandas as pd
 import seaborn as sns
 # from pylab import rcParam
-import matplotlib.pyplot as plt
-from matplotlib import rc
+# import matplotlib.pyplot as plt
+# from matplotlib import rc
 from pandas.plotting import register_matplotlib_converters
 from sklearn.model_selection import train_test_split
-import urllib
+# import urllib
 import os
-import csv
-import cv2
-import time
+# import csv
+# import cv2
+# import time
 from pathlib import Path
-from PIL import Image
+# from PIL import Image
 
 # import keras_retinanet models and utilities
 from keras_retinanet import models
@@ -41,9 +41,12 @@ tf.random.set_seed(RANDOM_SEED)
 ####################
 ## PRE-PROCESSING ##
 ####################
-TRAIN_DATA = Path.home() / "PycharmProjects" / "retina_net" / "data" / "train"
-TEST_DATA = Path.home() / "PycharmProjects" / "retina_net" / "data" / "test"
-LABELS = Path.home() / "PycharmProjects" / "retina_net" / "data" / "train.csv"
+# dir_path = os.path.dirname(os.path.realpath(__file__))
+parts = list(Path.cwd().parts)[:-1]
+TRAIN_DATA = Path(*parts) / "data" / "train"
+TEST_DATA = Path(*parts) / "data" / "test"
+LABELS = Path(*parts) / "data" / "train.csv"
+
 train = pd.read_csv(LABELS)
 # labels.head(2)
 #     image_id  width  height                         bbox   source
@@ -115,5 +118,11 @@ MODEL_PATH = Path.cwd() / "snapshots" / "resnet50_coco_best_v2.1.0.h5"
 
 # /Users/luislopez/PycharmProjects/retina_net/keras-retinanet/keras_retinanet/bin/train.py --freeze-backbone --random-transform --weights /Users/luislopez/PycharmProjects/retina_net/snapshots/resnet50_coco_best_v2.1.0.h5 --batch-size 8 --steps 500 --epochs 10 csv annotations_2.csv classes.csv
 
+###
+###
 
+# AWS SSH Connection String:
+# ssh -L localhost:8888:localhost:8888 -i mac_aws_ludoviclupus_key_pair.pem ubuntu@ec2-52-3-252-12.compute-1.amazonaws.com
+
+# /Users/luislopez/Documents/aws
 
