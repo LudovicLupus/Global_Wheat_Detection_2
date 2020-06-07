@@ -13,7 +13,6 @@ pandas = "*"
 seaborn = "*"
 matplotlib = "*"
 scikit-learn = "*"
-pycocotools = "*"
 kaggle = "*"
 
 [requires]
