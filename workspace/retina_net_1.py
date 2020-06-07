@@ -41,11 +41,12 @@ tf.random.set_seed(RANDOM_SEED)
 ####################
 ## PRE-PROCESSING ##
 ####################
-# dir_path = os.path.dirname(os.path.realpath(__file__))
-parts = list(Path.cwd().parts)[:-1]
-TRAIN_DATA = Path(*parts) / "data" / "train"
+dir_path = os.path.dirname(os.path.realpath(__file__))
+parts = list(Path(dir_path).parts)[:-1]         # Get the path from the main python file
+TRAIN_DATA = Path(*parts) / "data" / "train"    # Based on similar directory tree
 TEST_DATA = Path(*parts) / "data" / "test"
 LABELS = Path(*parts) / "data" / "train.csv"
+MODEL_PATH = Path(*parts) / "workspace" / "snapshots" / "resnet50_coco_best_v2.1.0.h5"
 
 train = pd.read_csv(LABELS)
 # labels.head(2)
@@ -108,7 +109,7 @@ train_df, test_df = train_test_split(train, test_size=0.2, random_state=RANDOM_S
 #   1) config files?
 # adjust this to point to your downloaded/trained model
 # models can be downloaded here: https://github.com/fizyr/keras-retinanet/releases
-MODEL_PATH = Path.cwd() / "snapshots" / "resnet50_coco_best_v2.1.0.h5"
+
 # load retinanet model (don't think we need this...)
 # model = models.load_model(model_path, backbone_name='resnet50')
 
