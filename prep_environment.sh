@@ -28,6 +28,8 @@ python setup.py build_ext --inplace   # Might not be necessary
 cd ~/kaggle/retina_net
 pip install pipenv
 pipenv install
+## Install tensorflow-gpu
+pipenv install tensorflow-gpu
 
 ################################################################
 ## Ensure that the DATA and MODEL have been transferred to    ##
@@ -40,6 +42,10 @@ mv resnet50_coco_best_v2.1.0.h5 kaggle/retina_net/workspace/snapshots/resnet50_c
 mv global-wheat-detection.zip kaggle/retina_net/data/global-wheat-detection.zip
 unzip kaggle/retina_net/data/global-wheat-detection.zip
 
+# Enter pipenv virtual shell
+cd ~/kaggle/retina_net/
+pipenv shell
+
 ###################################################################
 ## Execute training script from top-level 'retina_net' directory ##
 ###################################################################
@@ -50,3 +56,6 @@ keras-retinanet/keras_retinanet/bin/train.py \
     --batch-size 8 \
     --steps 500 \
     --epochs 10 csv workspace/annotations_2.csv workspace/classes.csv
+
+
+    

@@ -48,6 +48,12 @@ TEST_DATA = Path(*parts) / "data" / "test"
 LABELS = Path(*parts) / "data" / "train.csv"
 MODEL_PATH = Path(*parts) / "workspace" / "snapshots" / "resnet50_coco_best_v2.1.0.h5"
 
+print(f"FILE path: {dir_path}\n")
+print(f"TRAIN_DATA path: {TRAIN_DATA}\n")
+print(f"TEST_DATA path: {TEST_DATA}\n")
+print(f"LABELS path: {LABELS}\n")
+print(f"MODEL path: {MODEL_PATH}\n")
+
 train = pd.read_csv(LABELS)
 # labels.head(2)
 #     image_id  width  height                         bbox   source
@@ -92,15 +98,19 @@ train["class"] = "wheat"
 train["image_id"] = train["image_id"].apply(lambda x: str(x) + ".jpg")
 train["image_id"] = train["image_id"].apply(lambda x: Path.joinpath(TRAIN_DATA, str(x)))
 train["image_id"] = train["image_id"].astype("str")
+print(" ### TRAIN DATAFRAME HEAD ### \n")
+print(train.head(5))
 # Create annotations file
 train.to_csv("annotations_2.csv", index=False, header=None)  # Note that this is the format we need
 ANNOTATIONS_FILE = 'annotations.csv'
 # Create classes file
 wheat_class = pd.DataFrame({'class_name': ['wheat'], 'id': [0]})    # Should match train["class"]
+print(" ### CLASSES DATAFRAME HEAD ###\n")
+print(wheat_class.head(5))
 wheat_class = wheat_class.to_csv('classes.csv', index=False, header=None)
 CLASSES_FILE = 'classes.csv'
 
-# Split the data
+# Split the data (CURRENTLY NOT USING)
 train_df, test_df = train_test_split(train, test_size=0.2, random_state=RANDOM_SEED)
 
 ################
@@ -113,6 +123,3 @@ train_df, test_df = train_test_split(train, test_size=0.2, random_state=RANDOM_S
 # load retinanet model (don't think we need this...)
 # model = models.load_model(model_path, backbone_name='resnet50')
 
-##############
-## TRAINING ##
-##############
